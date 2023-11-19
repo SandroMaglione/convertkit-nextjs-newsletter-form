@@ -41,6 +41,7 @@ export const main = (request: Request): Effect.Effect<never, never, Response> =>
     return Response.json(subscriber);
   })
     .pipe(Effect.provide(ConvertKit.ConvertKitServiceLive))
+    .pipe(Effect.tapError((error) => Effect.logDebug({ error })))
     .pipe(
       Effect.catchTags({
         RequestMissingEmailError: () =>

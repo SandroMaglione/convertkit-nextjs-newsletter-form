@@ -1,11 +1,8 @@
-import * as AppSchema from "@/lib/Schema";
 import { HttpResponse, http } from "msw";
+import { subscribeResponseMock } from "./mocks";
 
 export const handlers = [
-  http.get("/api/subscribe", () => {
-    const json: AppSchema.SubscribeResponse = {
-      subscription: { id: 0, subscriber: { id: 0 } },
-    };
-    return HttpResponse.json(json);
+  http.post("http://localhost:3000/converkit", () => {
+    return HttpResponse.json(subscribeResponseMock);
   }),
 ];

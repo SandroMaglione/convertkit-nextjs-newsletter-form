@@ -1,0 +1,17 @@
+import * as AppSchema from "@/lib/Schema";
+import { ConfigProvider, Layer } from "effect";
+
+const configProviderMock = ConfigProvider.fromMap(
+  new Map([
+    ["CONVERTKIT_API_URL", "http://localhost:3000/converkit"],
+    ["CONVERTKIT_API_KEY", ""],
+    ["CONVERTKIT_FORM_ID", ""],
+  ])
+);
+
+export const layerConfigProviderMock =
+  Layer.setConfigProvider(configProviderMock);
+
+export const subscribeResponseMock: AppSchema.SubscribeResponse = {
+  subscription: { id: 0, subscriber: { id: 0 } },
+};

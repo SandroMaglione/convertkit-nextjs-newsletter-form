@@ -2,6 +2,7 @@
   "name": "convertkit-nextjs-newsletter-form",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
@@ -26,6 +27,7 @@
     "eslint-config-next": "14.0.3",
     "msw": "^2.0.8",
     "typescript": "^5",
+    "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^0.34.6"
   }
 }
