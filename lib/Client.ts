@@ -1,11 +1,12 @@
 import * as AppSchema from "@/lib/Schema";
 import * as Http from "@effect/platform/HttpClient";
-import { Effect } from "effect";
+import { Config, Effect } from "effect";
 
 export const main = (email: string) =>
   Effect.gen(function* (_) {
+    const apiUrl = yield* _(Effect.config(Config.string("SUBSCRIBE_API")));
     const req = yield* _(
-      Http.request.post("/api/subscribe"),
+      Http.request.post(apiUrl),
       Http.request.acceptJson,
       Http.request.schemaBody(AppSchema.RouteRequest)({ email })
     );
