@@ -1,4 +1,4 @@
-import { Context, Effect } from "effect";
+import { Context, Effect, Layer } from "effect";
 
 export interface ConvertKitService {
   /**
@@ -9,4 +9,13 @@ export interface ConvertKitService {
   ) => Effect.Effect<never, never, string>;
 }
 
-export const ConvertKitService = Context.Tag("@app/ConvertKitService");
+export const ConvertKitService = Context.Tag<ConvertKitService>(
+  "@app/ConvertKitService"
+);
+
+export const ConvertKitServiceLive = Layer.succeed(
+  ConvertKitService,
+  ConvertKitService.of({
+    addSubscriber: (email) => Effect.succeed(email),
+  })
+);
