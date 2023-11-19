@@ -11,7 +11,7 @@ export interface ConvertKitService {
   readonly addSubscriber: (
     email: string
   ) => Effect.Effect<
-    AppConfig.ConvertKitConfig,
+    never,
     | ConfigError.ConfigError
     | Http.body.BodyError
     | Http.error.RequestError
@@ -33,13 +33,12 @@ export const ConvertKitServiceLive = Layer.succeed(
         const convertKitConfig = yield* _(Effect.config(AppConfig.config));
 
         const req = yield* _(
-          Http.request.post(convertKitConfig.url).pipe(
-            Http.request.setHeaders(convertKitConfig.headers),
-            Http.request.schemaBody(AppSchema.SubscribeRequest)({
-              api_key: convertKitConfig.apiKey,
-              email,
-            })
-          )
+          Http.request.post(convertKitConfig.url),
+          Http.request.setHeaders(convertKitConfig.headers),
+          Http.request.schemaBody(AppSchema.SubscribeRequest)({
+            api_key: convertKitConfig.apiKey,
+            email,
+          })
         );
 
         return yield* _(

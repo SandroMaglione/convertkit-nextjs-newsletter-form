@@ -1,5 +1,9 @@
 import * as Schema from "@effect/schema/Schema";
 
+export const RouteRequest = Schema.struct({
+  email: Schema.string,
+});
+
 export const SubscribeRequest = Schema.struct({
   api_key: Schema.string,
   email: Schema.string,
