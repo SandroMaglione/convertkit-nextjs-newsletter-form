@@ -38,7 +38,7 @@ export const main = (request: Request): Effect.Effect<never, never, Response> =>
 
     const convertKit = yield* _(ConvertKit.ConvertKitService);
     const subscriber = yield* _(convertKit.addSubscriber(body.email));
-    return Response.json({ id: subscriber.subscription.subscriber.id });
+    return Response.json(subscriber);
   })
     .pipe(Effect.provide(ConvertKit.ConvertKitServiceLive))
     .pipe(
