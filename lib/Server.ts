@@ -1,72 +1,46 @@
-import * as ParseResult from "@effect/schema/ParseResult";
+import { ArrayFormatter } from "@effect/schema";
 import * as Schema from "@effect/schema/Schema";
-import { Data, Effect } from "effect";
-import * as ConvertKit from "./ConvertKit";
+import { Effect } from "effect";
 import * as AppSchema from "./Schema";
+import { MainLive } from "./Services";
+import * as ConvertKit from "./Services/ConvertKit";
+import { requestJson } from "./Services/Request";
 
-class RequestJsonError extends Data.TaggedError("RequestJsonError")<{
-  error: unknown;
-}> {}
-
-class RequestMissingEmailError extends Data.TaggedError(
-  "RequestMissingEmailError"
-)<{
-  jsonBody: any;
-  parseError: ParseResult.ParseError;
-}> {}
-
-export const main = (request: Request): Effect.Effect<never, never, Response> =>
-  Effect.gen(function* (_) {
-    const jsonBody = yield* _(
-      Effect.tryPromise({
-        try: () => request.json(),
-        catch: (error) => new RequestJsonError({ error }),
-      })
-    );
-
+export const main: Effect.Effect<Request, never, Response> = Effect.gen(
+  function* (_) {
     const body = yield* _(
-      jsonBody,
-      Schema.parseEither(AppSchema.RouteRequest),
-      Effect.mapError(
-        (parseError) =>
-          new RequestMissingEmailError({
-            parseError,
-            jsonBody,
-          })
-      )
+      requestJson,
+      Effect.flatMap(Schema.parse(AppSchema.RouteRequest))
     );
-
     const convertKit = yield* _(ConvertKit.ConvertKitService);
     const subscriber = yield* _(convertKit.addSubscriber(body.email));
     return Response.json(subscriber);
-  })
-    .pipe(Effect.provide(ConvertKit.ConvertKitServiceLive))
-    .pipe(Effect.tapError((error) => Effect.logDebug({ error })))
-    .pipe(
-      Effect.catchTags({
-        RequestMissingEmailError: () =>
-          Effect.succeed(
-            Response.json(
-              { error: "Missing email in request" },
-              { status: 400 }
-            )
-          ),
-        RequestJsonError: () =>
-          Effect.succeed(
-            Response.json(
-              { error: "Error while decoding request" },
-              { status: 400 }
-            )
-          ),
-      })
-    )
-    .pipe(
-      Effect.catchAll(() =>
-        Effect.succeed(
-          Response.json(
-            { error: "Error while performing request" },
-            { status: 500 }
-          )
+  }
+).pipe(
+  Effect.provide(MainLive),
+  Effect.tapError((error) => Effect.logDebug({ error })),
+  Effect.catchTags({
+    RequestJsonError: () =>
+      Effect.succeed(
+        Response.json(
+          { errors: "Error while decoding request" },
+          { status: 400 }
         )
+      ),
+    ParseError: (error) =>
+      Effect.succeed(
+        Response.json(
+          { error: ArrayFormatter.formatErrors(error.errors) },
+          { status: 400 }
+        )
+      ),
+  }),
+  Effect.catchAll((_) =>
+    Effect.succeed(
+      Response.json(
+        { error: "Error while performing request" },
+        { status: 500 }
       )
-    );
+    )
+  )
+);

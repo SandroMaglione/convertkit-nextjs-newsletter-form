@@ -4,9 +4,9 @@ import { ConfigProvider, Layer } from "effect";
 const configProviderMock = ConfigProvider.fromMap(
   new Map([
     ["SUBSCRIBE_API", "http://localhost:3000/subscribe"],
-    ["CONVERTKIT_API_URL", "http://localhost:3000/converkit"],
+    ["CONVERTKIT_API_URL", "http://localhost:3000"],
     ["CONVERTKIT_API_KEY", ""],
-    ["CONVERTKIT_FORM_ID", ""],
+    ["CONVERTKIT_FORM_ID", "123"],
   ])
 );
 

@@ -1,3 +1,4 @@
+"use client";
 import * as Client from "@/lib/Client";
 import { Effect, Exit } from "effect";
 import { useState } from "react";
