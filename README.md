@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# `How to implement a Custom Newsletter form with ConvertKit and Effect`
+<p>
+  <a href="https://github.com/SandroMaglione">
+    <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
+  </a>
+  <a href="https://twitter.com/SandroMaglione">
+    <img alt="Twitter: SandroMaglione" src="https://img.shields.io/twitter/follow/SandroMaglione.svg?style=social" target="_blank" />
+  </a>
+</p>
 
-## Getting Started
+Learn how to use [Effect](https://effect.website/) to perform a request to subscribe a user to your newsletter on [ConvertKit](https://convertkit.com/):
 
-First, run the development server:
+- Define component to collect user email
+- Perform API request to sign up the user to the newsletter
+- Implement the code to subscribe the user using Effect
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+***
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project is part of my weekly newsletter at [**sandromaglione.com**](https://www.sandromaglione.com/newsletter?ref=Github&utm_medium=newsletter_project&utm_term=effect).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![sandromaglione.com Newsletter weekly project](https://www.sandromaglione.com/static/images/newsletter_banner.webp)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Project structure
+The core of the project is implemented inside [`lib`](./lib). The files inside `lib` contain the services and configurations defined using **Effect**.
 
-## Learn More
+[`app`](./app) contains all the pages and API routes (`nextjs`).
 
-To learn more about Next.js, take a look at the following resources:
+**Read all the details in the full article** 👇
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<a href="https://www.sandromaglione.com/articles/how-to-implement-a-custom-newsletter-form-with-convertkit-and-effect?ref=Github&utm_medium=newsletter_project&utm_term=effect">
+    <img alt="Read the full article on my website" src="https://www.sandromaglione.com/api/image?title=Custom%20Newsletter%20form%20with%20ConvertKit%20and%20Effect&publishedAt=2023-11-23" target="_blank" /> 
+</a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Testing
+[`test`](./test) contains some tests of the Effect program. The app uses `vitest` and `msw` for testing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Read all the details in the full article** 👇
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<a href="https://www.sandromaglione.com/articles/how-to-test-typescript-app-using-vitest-and-msw?ref=Github&utm_medium=newsletter_project&utm_term=effect">
+    <img alt="Read the full article on own to setup and test the app using Effect" src="https://www.sandromaglione.com/api/image?title=How%20to%20test%20a%20Typescript%20app%20using%20vitest%20and%20msw&publishedAt=2023-11-24" target="_blank" /> 
+</a>
+
