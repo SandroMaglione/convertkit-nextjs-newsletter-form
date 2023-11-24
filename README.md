@@ -18,7 +18,10 @@ Learn how to use [Effect](https://effect.website/) to perform a request to subsc
 
 This project is part of my weekly newsletter at [**sandromaglione.com**](https://www.sandromaglione.com/newsletter?ref=Github&utm_medium=newsletter_project&utm_term=effect).
 
-![sandromaglione.com Newsletter weekly project](https://www.sandromaglione.com/static/images/newsletter_banner.webp)
+
+<a href="https://www.sandromaglione.com/newsletter?ref=Github&utm_medium=newsletter_project&utm_term=effect">
+    <img alt="sandromaglione.com Newsletter weekly project" src="https://www.sandromaglione.com/static/images/newsletter_banner.webp" target="_blank" /> 
+</a>
 
 ## Project structure
 The core of the project is implemented inside [`lib`](./lib). The files inside `lib` contain the services and configurations defined using **Effect**.
